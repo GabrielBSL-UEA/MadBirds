@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1082562806342640626}
   - component: {fileID: 3343084484414640055}
   - component: {fileID: 8383398998576085107}
+  - component: {fileID: 485321415409082726}
   m_Layer: 0
   m_Name: BeekRed
   m_TagString: Untagged
@@ -121,3 +122,22 @@ Rigidbody2D:
   m_SleepingMode: 0
   m_CollisionDetection: 1
   m_Constraints: 0
+--- !u!95 &485321415409082726
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 561002279588933415}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8584c5abbbc0ec94db893186dcb3d80c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
