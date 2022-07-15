@@ -11,17 +11,17 @@ public class Monster : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (ShoulDieFromCollision(collision))
+        if (ShouldDieFromCollision(collision))
         {
-            Die();
+            StartCoroutine(Die());
         }
+
     }
 
-    bool ShoulDieFromCollision(Collision2D collision)
+    bool ShouldDieFromCollision(Collision2D collision)
     {
         if (_hasDied)
             return false;
-
         Bird bird = collision.gameObject.GetComponent<Bird>();
         if (bird != null)
             return true;
@@ -32,11 +32,13 @@ public class Monster : MonoBehaviour
         return false;
     }
 
-    void Die()
+    IEnumerator Die()
     {
         _hasDied = true;
         GetComponent<SpriteRenderer>().sprite = _deadSprite;
         _particleSystem.Play();
-        //gameObject.SetActive(false);
+        yield return new WaitForSeconds(1);
+
+        gameObject.SetActive(false);
     }
 }
