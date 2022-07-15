@@ -4,44 +4,45 @@ using UnityEngine;
 
 public class Bird : MonoBehaviour
 {
-    [SerializeField] float _launchForce;
-    [SerializeField] float _maxDragDistance;
-    private SpriteRenderer spriteRenderer;
-    private Rigidbody2D rigidbody2D;
-    private Vector2 _startPosition;
+    [SerializeField] float _launchForce = 500;
+    [SerializeField] float _maxDragDistance = 5;
 
-    private void Awake()
+    Vector2 _startPosition;
+    Rigidbody2D _rigidbody2D;
+    SpriteRenderer _spriteRenderer;
+
+    void Awake()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        rigidbody2D = GetComponent<Rigidbody2D>();
+        _rigidbody2D = GetComponent<Rigidbody2D>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
     }
+
+
     // Start is called before the first frame update
     void Start()
     {
-        _startPosition = rigidbody2D.position;
-        rigidbody2D.isKinematic = true;
+        _startPosition = _rigidbody2D.position;
+        _rigidbody2D.isKinematic = true;
     }
 
-    // Update is called once per frame
-    void Update()
+    void OnMouseDown()
     {
-
+        _spriteRenderer.color = Color.red;
     }
-    void OnCollisionEnter2D(Collision2D collision)
+
+    void OnMouseUp()
     {
-        StartCoroutine(ResetAfterDelay());
+        Vector2 currentPosition = _rigidbody2D.position;
+        Vector2 direction = _startPosition - currentPosition;
+        direction.Normalize();
 
+        _rigidbody2D.isKinematic = false;
+        _rigidbody2D.AddForce(direction * _launchForce);
+
+        _spriteRenderer.color = Color.white;
     }
 
-    IEnumerator ResetAfterDelay()
-    {
-        yield return new WaitForSeconds(3);
-        rigidbody2D.position = _startPosition;
-        rigidbody2D.isKinematic = true;
-        rigidbody2D.velocity = Vector2.zero;
-    }
-    #region MouseSetUp
-    private void OnMouseDrag()
+    void OnMouseDrag()
     {
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector2 desiredPosition = mousePosition;
@@ -57,23 +58,30 @@ public class Bird : MonoBehaviour
         if (desiredPosition.x > _startPosition.x)
             desiredPosition.x = _startPosition.x;
 
-        rigidbody2D.position = desiredPosition;
-    }
-    private void OnMouseDown()
-    {
-        spriteRenderer.color = Color.red;
-    }
-    private void OnMouseUp()
-    {
-        Vector2 currentPosition = rigidbody2D.position;
-        Vector2 direction = _startPosition - currentPosition;
-        direction.Normalize();
+        _rigidbody2D.position = desiredPosition;
 
-        rigidbody2D.isKinematic = false;
-        rigidbody2D.AddForce(direction * _launchForce);
 
-        spriteRenderer.color = Color.white;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        StartCoroutine(ResetAfterDelay());
+    }
+
+    IEnumerator ResetAfterDelay()
+    {
+        yield return new WaitForSeconds(3);
+        _rigidbody2D.position = _startPosition;
+        _rigidbody2D.isKinematic = true;
+        _rigidbody2D.velocity = Vector2.zero;
+
     }
 }
-    #endregion
+    
 
