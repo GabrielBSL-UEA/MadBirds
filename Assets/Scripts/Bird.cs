@@ -8,8 +8,11 @@ public class Bird : MonoBehaviour
     [SerializeField] float _maxDragDistance = 5;
 
     Vector2 _startPosition;
-    Rigidbody2D _rigidbody2D;
+    protected Rigidbody2D _rigidbody2D;
     SpriteRenderer _spriteRenderer;
+
+    protected bool isFlying;
+    protected bool effectUsed;
 
     void Awake()
     {
@@ -40,6 +43,7 @@ public class Bird : MonoBehaviour
         _rigidbody2D.AddForce(direction * _launchForce);
 
         _spriteRenderer.color = Color.white;
+        isFlying = true;
     }
 
     void OnMouseDrag()
@@ -69,8 +73,15 @@ public class Bird : MonoBehaviour
 
     }
 
+    public virtual bool ApplyBirdEffect()
+    {
+        return isFlying && !effectUsed;
+    }
+
     void OnCollisionEnter2D(Collision2D collision)
     {
+        isFlying = false;
+        effectUsed = false;
         StartCoroutine(ResetAfterDelay());
     }
 
