@@ -145,6 +145,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _launchForce: 700
   _maxDragDistance: 3.5
+  speedUpForce: 1000
 --- !u!50 &6975625680692889557
 Rigidbody2D:
   serializedVersion: 4
