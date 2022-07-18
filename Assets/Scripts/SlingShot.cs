@@ -4,32 +4,54 @@ using UnityEngine;
 
 public class SlingShot : MonoBehaviour
 {
+    [Header("Launch")]
+    [SerializeField] private float launchTime = .25f;
+
     [SerializeField] private Vector3 minusFront;
     [SerializeField] private Vector3 minusBehind;
 
     [SerializeField] private LineRenderer frontLine;
     [SerializeField] private LineRenderer backLine;
 
-    private Bird bird;
-    private Vector2 initialPos;
+    private Bird _bird;
+    private Vector2 _initialPos;
 
-    void Awake()
+    [SerializeField] private Transform RestingPoint;
+    public bool Launched { get; set; }
+
+    private void Start()
     {
-        bird = FindObjectOfType<Bird>();
-        initialPos = bird.transform.position;
+        _bird = GameController.Instance.Bird;
+        _initialPos = _bird.transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
-        Vector3 slingPoint = bird.transform.position;
-
-        if(bird.transform.position.x > initialPos.x)
+        if (Launched)
         {
-            slingPoint = initialPos;
+            return;
         }
+
+        Vector3 slingPoint = _bird.transform.position;
 
         frontLine.SetPosition(1, slingPoint - frontLine.transform.position - minusFront);
         backLine.SetPosition(1, slingPoint - backLine.transform.position - minusBehind);
+    }
+
+    public void StartDragAnimation(Vector2 finalVelocity)
+    {
+        _bird.transform.LeanMove(_initialPos, launchTime)
+            .setEaseInCubic()
+            .setOnComplete(_ => {
+                Launched = true;
+                _bird.LaunchBird(finalVelocity);
+                CameraController.Instance.SetCameraTransition(1);
+            });
+    }
+
+    public Vector2 RestingPosition()
+    {
+        return (Vector2)RestingPoint.position;
     }
 }
