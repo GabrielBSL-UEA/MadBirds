@@ -24,6 +24,7 @@ public class TNTReactor : MonoBehaviour
         {
             StartCoroutine(ExplosionSequence());
         }
+       
     }
 
     IEnumerator ExplosionSequence()
@@ -35,6 +36,7 @@ public class TNTReactor : MonoBehaviour
 
         Instantiate(explosion, transform.position, Quaternion.identity);
         Destroy(gameObject);
+        FindObjectOfType<AudioManager>().Play("Explosion");
     }
 
     IEnumerator BlinkingSequence()

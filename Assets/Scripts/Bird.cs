@@ -77,6 +77,7 @@ public class Bird : MonoBehaviour
             return;
         }
         _spriteRenderer.color = Color.red;
+        FindObjectOfType<AudioManager>().Play("Slingshot");
     }
 
     void OnMouseDrag()
@@ -87,6 +88,7 @@ public class Bird : MonoBehaviour
         }
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector2 desiredPosition = mousePosition;
+    
 
         float distance = Vector2.Distance(desiredPosition, _startPosition);
         if (distance > maxDragDistance)
@@ -100,6 +102,7 @@ public class Bird : MonoBehaviour
             desiredPosition.x = _startPosition.x;
 
         _rigidbody2D.position = desiredPosition;
+
     }
 
     void OnMouseUp()
@@ -131,6 +134,7 @@ public class Bird : MonoBehaviour
         Vector2 forceToApply = direction * finalLaunchForce;
 
         GameController.Instance.SlingShot.StartDragAnimation(forceToApply);
+        FindObjectOfType<AudioManager>().Play("Whoosh");
 
     }
 
@@ -138,6 +142,7 @@ public class Bird : MonoBehaviour
     {
         _rigidbody2D.isKinematic = false;
         _rigidbody2D.AddForce(forceToApply);
+        FindObjectOfType<AudioManager>().Play("Flying");
     }
 
     public virtual bool ApplyBirdEffect()
