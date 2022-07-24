@@ -37,6 +37,7 @@ public class SlingShot : MonoBehaviour
 
         frontLine.SetPosition(1, slingPoint - frontLine.transform.position - minusFront);
         backLine.SetPosition(1, slingPoint - backLine.transform.position - minusBehind);
+       
     }
 
     public void StartDragAnimation(Vector2 finalVelocity)
@@ -47,6 +48,8 @@ public class SlingShot : MonoBehaviour
                 Launched = true;
                 _bird.LaunchBird(finalVelocity);
                 CameraController.Instance.SetCameraTransition(1);
+                
+
             });
     }
 

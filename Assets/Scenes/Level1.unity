@@ -1543,7 +1543,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2591474796397787545, guid: 56c229e98dbb4a54284be1f61336a4de, type: 3}
       propertyPath: m_Lens.OrthographicSize
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2591474796756529243, guid: 56c229e98dbb4a54284be1f61336a4de, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1559,7 +1559,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2591474796756529316, guid: 56c229e98dbb4a54284be1f61336a4de, type: 3}
       propertyPath: orthographic size
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2591474796798991404, guid: 56c229e98dbb4a54284be1f61336a4de, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1670,9 +1670,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 4b8c1e7683dbe7d44aece34b250934e4, type: 3}
+  m_audioClip: {fileID: 8300000, guid: bd2f3cd72017a984383a46dfb56e62c5, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.576
   m_Pitch: 1
   Loop: 0
   Mute: 0
