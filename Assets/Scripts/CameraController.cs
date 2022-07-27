@@ -58,10 +58,19 @@ public class CameraController : MonoBehaviour
         LeanTween.value(0, 1, transitionsTime)
             .setOnUpdate(value =>
             {
+                if(virtualCamera == null)
+                {
+                    return;
+                }
                 virtualCamera.transform.position = Vector3.Lerp(positions[transitionValue % 2], positions[(transitionValue + 1) % 2], value);
                 virtualCamera.m_Lens.OrthographicSize = Mathf.Lerp(sizes[transitionValue % 2], sizes[(transitionValue + 1) % 2], value);
             })
             .setEase(transitionType)
             .setDelay(delay);
+    }
+
+    private void OnDestroy()
+    {
+        LeanTween.cancel(gameObject);
     }
 }
