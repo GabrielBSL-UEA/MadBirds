@@ -44,38 +44,63 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sounds:
-  - name: 
-    clip: {fileID: 0}
+  - name: Explosion
+    clip: {fileID: 8300000, guid: 8d3acb968330971469001e51628d6b65, type: 3}
     volume: 0.271
     pitch: 0.1
-    source: {fileID: 0}
-  - name: Slingshot
-    clip: {fileID: 8300000, guid: 7e116248ea3879c40b07bd64aa95c423, type: 3}
-    volume: 0.5
-    pitch: 1.5
-    source: {fileID: 0}
-  - name: Flying
-    clip: {fileID: 8300000, guid: 354c64384be14124b91afee8ab57c937, type: 3}
-    volume: 0.5
-    pitch: 1.5
+    isMusic: 0
     source: {fileID: 0}
   - name: Whoosh
     clip: {fileID: 8300000, guid: 3f23b1a17ba3f8e42adf6993e8667b16, type: 3}
-    volume: 0.5
-    pitch: 1.5
+    volume: 1
+    pitch: 3
+    isMusic: 0
     source: {fileID: 0}
-  - name: Explosion
-    clip: {fileID: 8300000, guid: 8d3acb968330971469001e51628d6b65, type: 3}
-    volume: 0.5
-    pitch: 1.5
+  - name: Slingshot
+    clip: {fileID: 8300000, guid: 068681f812acd9745be15a0073e273d3, type: 3}
+    volume: 0.555
+    pitch: 1.75
+    isMusic: 0
     source: {fileID: 0}
-  - name: Monster.Death
+  - name: Wood Colision
+    clip: {fileID: 8300000, guid: 7a7faf6b624ff03499e69bff7c67dcd1, type: 3}
+    volume: 0.5
+    pitch: 1.74
+    isMusic: 0
+    source: {fileID: 0}
+  - name: Flying
+    clip: {fileID: 8300000, guid: 354c64384be14124b91afee8ab57c937, type: 3}
+    volume: 1
+    pitch: 3
+    isMusic: 0
+    source: {fileID: 0}
+  - name: Hit
+    clip: {fileID: 8300000, guid: df5586b02549b3944a7cb719a0490e8a, type: 3}
+    volume: 1
+    pitch: 1
+    isMusic: 1
+    source: {fileID: 0}
+  - name: MonsterDeath
     clip: {fileID: 8300000, guid: da22de237c51cc249998c4a5d0037f97, type: 3}
-    volume: 0.5
-    pitch: 1.5
+    volume: 1
+    pitch: 1
+    isMusic: 1
     source: {fileID: 0}
-  - name: tome
-    clip: {fileID: 8300000, guid: a25e40466424448489c2a8d0f2ac3b37, type: 3}
-    volume: 0.5
-    pitch: 1.5
+  - name: MenuMusic
+    clip: {fileID: 8300000, guid: 99dd777808fc62c469167e656e77e8f2, type: 3}
+    volume: 1
+    pitch: 1
+    isMusic: 1
+    source: {fileID: 0}
+  - name: GameplayOneMusic
+    clip: {fileID: 8300000, guid: bd2f3cd72017a984383a46dfb56e62c5, type: 3}
+    volume: 1
+    pitch: 1
+    isMusic: 1
+    source: {fileID: 0}
+  - name: GameplayTwoMusic
+    clip: {fileID: 8300000, guid: 6c6a124519d27cb47a73bdccc000c0e7, type: 3}
+    volume: 1
+    pitch: 1
+    isMusic: 1
     source: {fileID: 0}

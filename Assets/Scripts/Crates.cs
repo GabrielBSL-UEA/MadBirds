@@ -6,7 +6,7 @@ public class Crates : MonoBehaviour
 {
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        FindObjectOfType<AudioManager>().Play("Wood Collision");
+        FindObjectOfType<AudioManager>().PlaySFX("Wood Collision");
     }
 
  }

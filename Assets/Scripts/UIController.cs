@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class UIController : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class UIController : MonoBehaviour
     [Header("HUD")]
     [SerializeField] private GameObject heartObject;
     [SerializeField] private Transform heartGroup;
+    [SerializeField] private TextMeshProUGUI pointsText;
 
     [Header("Pause Canvas")]
     [SerializeField] private GameObject loseCanvas;
@@ -22,6 +24,11 @@ public class UIController : MonoBehaviour
 
     public void SetHearts(int amount)
     {
+        foreach (Transform item in heartGroup)
+        {
+            Destroy(item.gameObject);
+        }
+
         for (int i = 0; i < amount; i++)
         {
             Instantiate(heartObject, heartGroup.transform);
@@ -41,5 +48,10 @@ public class UIController : MonoBehaviour
     public void InformLevelReload()
     {
         GameController.Instance.ReloadLevel();
+    }
+
+    public void SetPointText(int points)
+    {
+        pointsText.text = points.ToString();
     }
 }

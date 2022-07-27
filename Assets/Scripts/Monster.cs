@@ -19,7 +19,7 @@ public class Monster : MonoBehaviour
         if (ShouldDieFromCollision(collision))
         {
             StartCoroutine(Die());
-            FindObjectOfType<AudioManager>().Play("tome");
+            FindObjectOfType<AudioManager>().PlaySFX("tome");
 
         }
 
@@ -46,7 +46,7 @@ public class Monster : MonoBehaviour
         _particleSystem.Play();
 
         yield return new WaitForSeconds(1);
-        FindObjectOfType<AudioManager>().Play("Monster.Death");
+        FindObjectOfType<AudioManager>().PlaySFX("Monster.Death");
         GameController.Instance.RemoveMonster(this);
         Destroy(gameObject);
     }

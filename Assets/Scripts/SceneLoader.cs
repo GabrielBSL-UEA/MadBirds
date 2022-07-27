@@ -7,6 +7,7 @@ public class SceneLoader : MonoBehaviour
 {
     public void LoadScene()
     {
+        SceneManager.MoveGameObjectToScene(MenuController.Instance.gameObject, SceneManager.GetActiveScene());
         SceneManager.LoadScene("Level0");
     }
 
