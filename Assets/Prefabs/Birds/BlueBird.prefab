@@ -143,8 +143,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34a3378937077d6468d57e89b46ff973, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _launchForce: 700
-  _maxDragDistance: 3.5
+  maxLaunchForce: 500
+  maxDragDistance: 5
+  minDragDistance: 2
+  maxVelocityForReset: 0.3
+  slowBirdTimeForReset: 3
+  totalTimeForReset: 10
   speedUpForce: 1000
 --- !u!50 &6975625680692889557
 Rigidbody2D:
@@ -166,4 +170,4 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
