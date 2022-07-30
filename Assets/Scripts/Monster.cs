@@ -9,11 +9,18 @@ public class Monster : MonoBehaviour
 
     bool _hasDied;
 
+    private void Start()
+    {
+        GameController.Instance.AddMonster(this);
+    }
+
     void OnCollisionEnter2D(Collision2D collision)
     {
         if (ShouldDieFromCollision(collision))
         {
             StartCoroutine(Die());
+            FindObjectOfType<AudioManager>().PlaySFX("tome");
+
         }
 
     }
@@ -37,8 +44,10 @@ public class Monster : MonoBehaviour
         _hasDied = true;
         GetComponent<SpriteRenderer>().sprite = _deadSprite;
         _particleSystem.Play();
-        yield return new WaitForSeconds(1);
 
-        gameObject.SetActive(false);
+        yield return new WaitForSeconds(1);
+        FindObjectOfType<AudioManager>().PlaySFX("Monster.Death");
+        GameController.Instance.RemoveMonster(this);
+        Destroy(gameObject);
     }
 }

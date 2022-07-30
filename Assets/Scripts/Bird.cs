@@ -4,12 +4,28 @@ using UnityEngine;
 
 public class Bird : MonoBehaviour
 {
-    [SerializeField] float _launchForce = 500;
-    [SerializeField] float _maxDragDistance = 5;
+    [Header("Launch")]
+    [SerializeField] private float maxLaunchForce = 500;
+    [SerializeField] private float maxDragDistance = 5;
+    [SerializeField] private float minDragDistance = 2;
 
-    Vector2 _startPosition;
-    Rigidbody2D _rigidbody2D;
-    SpriteRenderer _spriteRenderer;
+    [Header("Reset")]
+    [SerializeField] private float maxVelocityForReset = .3f;
+    [SerializeField] private float slowBirdTimeForReset = 3f;
+    [SerializeField] private float totalTimeForReset = 10f;
+
+    protected Vector2 _startPosition;
+    protected Rigidbody2D _rigidbody2D;
+    protected SpriteRenderer _spriteRenderer;
+
+    public bool Interactable { get; set; } = true;
+
+    protected bool isFlying;
+    protected bool effectUsed;
+    protected bool crashed;
+
+    protected float slowResetTimer;
+    protected float totalResetTimer;
 
     void Awake()
     {
@@ -25,34 +41,61 @@ public class Bird : MonoBehaviour
         _rigidbody2D.isKinematic = true;
     }
 
-    void OnMouseDown()
+    // Update is called once per frame
+    void FixedUpdate()
     {
-        _spriteRenderer.color = Color.red;
+        if (!crashed)
+        {
+            return;
+        }
+
+        totalResetTimer += Time.fixedDeltaTime;
+
+        if(totalResetTimer > totalTimeForReset)
+        {
+            ResetBird();
+        }
+
+        if (_rigidbody2D.velocity.sqrMagnitude < maxVelocityForReset * maxVelocityForReset)
+        {
+            slowResetTimer += Time.fixedDeltaTime;
+            if (slowResetTimer > slowBirdTimeForReset)
+            {
+                ResetBird();
+            }
+        }
+        else
+        {
+            slowResetTimer = 0;
+        }
     }
 
-    void OnMouseUp()
+    void OnMouseDown()
     {
-        Vector2 currentPosition = _rigidbody2D.position;
-        Vector2 direction = _startPosition - currentPosition;
-        direction.Normalize();
-
-        _rigidbody2D.isKinematic = false;
-        _rigidbody2D.AddForce(direction * _launchForce);
-
-        _spriteRenderer.color = Color.white;
+        if (!Interactable)
+        {
+            return;
+        }
+        _spriteRenderer.color = Color.red;
+        FindObjectOfType<AudioManager>().PlaySFX("Slingshot");
     }
 
     void OnMouseDrag()
     {
+        if (!Interactable)
+        {
+            return;
+        }
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector2 desiredPosition = mousePosition;
+    
 
         float distance = Vector2.Distance(desiredPosition, _startPosition);
-        if (distance > _maxDragDistance)
+        if (distance > maxDragDistance)
         {
             Vector2 direction = desiredPosition - _startPosition;
             direction.Normalize();
-            desiredPosition = _startPosition + (direction * _maxDragDistance);
+            desiredPosition = _startPosition + (direction * maxDragDistance);
         }
 
         if (desiredPosition.x > _startPosition.x)
@@ -60,27 +103,81 @@ public class Bird : MonoBehaviour
 
         _rigidbody2D.position = desiredPosition;
 
+    }
+
+    void OnMouseUp()
+    {
+        if (!Interactable)
+        {
+            return;
+        }
+
+        isFlying = true;
+        Interactable = false;
+        _spriteRenderer.color = Color.white;
+
+        Vector2 currentPosition = _rigidbody2D.position;
+        Vector2 direction = _startPosition - currentPosition;
+
+        if (direction.sqrMagnitude < minDragDistance * minDragDistance)
+        {
+            Interactable = true;
+            _rigidbody2D.position = _startPosition;
+            return;
+        }
+
+        float dragAmount = Vector2.Distance(currentPosition, _startPosition);
+        float finalLaunchForce = (maxLaunchForce * dragAmount) / maxDragDistance;
+
+        direction.Normalize();
+
+        Vector2 forceToApply = direction * finalLaunchForce;
+
+        GameController.Instance.SlingShot.StartDragAnimation(forceToApply);
+        FindObjectOfType<AudioManager>().PlaySFX("Whoosh");
 
     }
 
-    // Update is called once per frame
-    void Update()
+    public void LaunchBird(Vector2 forceToApply)
     {
+        _rigidbody2D.isKinematic = false;
+        _rigidbody2D.AddForce(forceToApply);
+        FindObjectOfType<AudioManager>().PlaySFX("Flying");
+    }
 
+    public virtual bool ApplyBirdEffect()
+    {
+        return isFlying && !effectUsed;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("StageLimit"))
+        {
+            ResetBird();
+        }
     }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        StartCoroutine(ResetAfterDelay());
+        isFlying = false;
+        effectUsed = false;
+        crashed = true;
     }
 
-    IEnumerator ResetAfterDelay()
+    private void ResetBird()
     {
-        yield return new WaitForSeconds(3);
         _rigidbody2D.position = _startPosition;
         _rigidbody2D.isKinematic = true;
         _rigidbody2D.velocity = Vector2.zero;
+        _rigidbody2D.SetRotation(0);
 
+        crashed = false;
+        Interactable = true;
+        totalResetTimer = 0;
+        GameController.Instance.RemoveLife();
+        GameController.Instance.SlingShot.Launched = false;
+        CameraController.Instance.SetCameraTransition(0, 0);
     }
 }
     
