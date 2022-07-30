@@ -3143,6 +3143,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 553062086147929594, guid: 9b553a02bb4b64949907be764d10493f, type: 3}
+      propertyPath: speedUpForce
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 553062086147929594, guid: 9b553a02bb4b64949907be764d10493f, type: 3}
+      propertyPath: maxLaunchForce
+      value: 800
+      objectReference: {fileID: 0}
     - target: {fileID: 1850692230130443367, guid: 9b553a02bb4b64949907be764d10493f, type: 3}
       propertyPath: m_RootOrder
       value: 9
