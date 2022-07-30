@@ -1919,6 +1919,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3824140022811634212, guid: deba461cbff10684a9766f98bd1da0b6, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6156612800804005130, guid: deba461cbff10684a9766f98bd1da0b6, type: 3}
       propertyPath: m_Name
       value: UIController
@@ -2200,6 +2204,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2289747203313155490, guid: e90a8dbfe6b2b8f42bc84e8de5767c06, type: 3}
+      propertyPath: m_Constraints
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 2289747203313155494, guid: e90a8dbfe6b2b8f42bc84e8de5767c06, type: 3}
       propertyPath: m_SortingLayer
       value: 0
